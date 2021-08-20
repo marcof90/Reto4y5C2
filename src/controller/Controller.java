@@ -11,20 +11,34 @@ import services.Conector;
 
 public class Controller {
 
+    //reto 4
     private ArrayList<Req1> req1s;
     private ArrayList<Req2> req2s;
     private ArrayList<Req3> req3s;
+    
+    //reto 5
+    private ArrayList<String> req1s5;
+    private ArrayList<String> req2s5;
+    private ArrayList<String> req3s5;
 
     private Conector conectorDB;
 
     public Controller(String url) {
         super();
+        //reto 4
         req1s = new ArrayList<>();
         req2s = new ArrayList<>();
         req3s = new ArrayList<>();
+        
+        //reto 5
+        req1s5 = new ArrayList<>();
+        req2s5 = new ArrayList<>();
+        req3s5 = new ArrayList<>();
+        
         conectorDB = new Conector(url);
     }
 
+    //reto 4
     public void req1() {
         ResultSet rs = conectorDB.getReq1DB();        
         try {
@@ -86,5 +100,48 @@ public class Controller {
             System.out.println(req3);
         }
     }
+
+    //reto 5
+
+    public void req15() {
+        req1s5.clear();
+        ResultSet rs = conectorDB.getReq1DB();        
+        try {
+            while (rs.next()) {
+                Req1 req1 = new Req1(rs.getInt("total"), 
+                rs.getInt("id_proyecto"), 
+                rs.getString("pagado"), 
+                rs.getString("proveedor"));
+                req1s5.add(req1.toString());
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } 
+    }
+
+    public ArrayList<String> getReq1s5() {
+        return req1s5;
+    }
+
+    public void setReq1s5(ArrayList<String> req1s5) {
+        this.req1s5 = req1s5;
+    }
+
+    public ArrayList<String> getReq2s5() {
+        return req2s5;
+    }
+
+    public void setReq2s5(ArrayList<String> req2s5) {
+        this.req2s5 = req2s5;
+    }
+
+    public ArrayList<String> getReq3s5() {
+        return req3s5;
+    }
+
+    public void setReq3s5(ArrayList<String> req3s5) {
+        this.req3s5 = req3s5;
+    }
+
 
 }
